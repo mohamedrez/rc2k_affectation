@@ -41,5 +41,26 @@
   }
 
   var colorise = setInterval(highlight_selected_date, 300);
+  
+  $('#teams').on('change',function(event) {
+  	var $this = $(this);
+  	get_team_schedule($this.val());
+  });
+
+  function get_team_schedule(id){
+  	$.ajax({
+  		url: 'http://localhost:3000/schedules',
+  		data: {team_id: id},
+  	})
+  	.done(display_busy_dates)
+  	.fail(function() {
+  		console.log("error");
+  	})
+  }
+
+  function display_busy_dates(data){
+  	var busy_dates = data[0].busy_dates;
+  	console.log(busy_dates);
+  }
 
 })(jQuery)
