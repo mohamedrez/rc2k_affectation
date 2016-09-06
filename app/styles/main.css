@@ -87,3 +87,8 @@ body {
     border-bottom: 0;
   }
 }
+
+/*  */
+.fc-selected{
+  background-color: green;
+}
