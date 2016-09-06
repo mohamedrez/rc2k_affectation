@@ -90,5 +90,8 @@ body {
 
 /*  */
 .fc-selected{
-  background-color: green;
+  background-color: green !important;
+}
+.fc-busy{
+  background-color: red !important;
 }

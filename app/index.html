@@ -44,24 +44,41 @@
           </div>
         </div>
         <div class="col-sm-4">
-          <h3>Teams</h3>
-          <select name="teams" id="teams" class="form-control">
-            <option value="">-- Select One --</option>
-            <option value="1">Team1</option>
-            <option value="2">Team2</option>
-            <option value="3">Team3</option>
-            <option value="4">Team4</option>
-          </select>
-          <h3>Ordre de travaille</h3>
-          <select name="" id="travaille" class="form-control">
-            <option value="">-- Select One --</option>
-            <option value="tavaille1">Tavaille1</option>
-            <option value="tavaille2">Tavaille2</option>
-            <option value="tavaille3">Tavaille3</option>
-            <option value="tavaille4">Tavaille4</option>
-          </select>
+          <form id="affectation_form" action="" method="POST" role="form">
+            <div class="form-group">
+              <h3>Teams</h3>
+              <select name="teams" id="teams" class="form-control">
+                <option value="">-- Select One --</option>
+                <option value="1">Team1</option>
+                <option value="2">Team2</option>
+                <option value="3">Team3</option>
+                <option value="4">Team4</option>
+              </select>
+              <h3>Ordre de travaille</h3>
+              <select name="" id="travailles" class="form-control">
+                <option value="">-- Select One --</option>
+                <option value="tavaille1">Tavaille1</option>
+                <option value="tavaille2">Tavaille2</option>
+                <option value="tavaille3">Tavaille3</option>
+                <option value="tavaille4">Tavaille4</option>
+              </select>
+            </div>
+            <button type="button" class="btn btn-primary">Save</button>
+          </form>
+          <div class="modal fade" id="error-modal">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h4 class="modal-title">An error has occured</h4>
+                </div>
+                <div class="modal-body">
+                  <strong id="error-message"></strong> 
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <button type="button" class="btn btn-primary">Save</button>
       </div>
 
       <div class="footer">
