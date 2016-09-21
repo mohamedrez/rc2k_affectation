@@ -1,17 +1,19 @@
 (function($){
   var busy_dates = [];
-  var dateFormat =  "mm/dd/yy",
+  var dateFormat =  "dd/mm/yy",
     from = $( "#from" )
       .datepicker({
         changeMonth: true,
-        beforeShowDay: disable_from_dates
+        beforeShowDay: disable_from_dates,
+        dateFormat: dateFormat
       })
       .on( "change", function() {
         set_to_date(this);
       }),
     to = $( "#to" ).datepicker({ 
       changeMonth: true,
-      beforeShowDay : $.datepicker.noWeekends
+      beforeShowDay : $.datepicker.noWeekends,
+      dateFormat: dateFormat
     })
     .on( "change", function() {
       from.datepicker( "option", "maxDate", getDate( this ) );
@@ -68,7 +70,7 @@
 
   function fetch_team_schedule(id){
     $.ajax({
-      url: 'http://localhost:3000/schedules',
+      url: 'http://localhost:37707/schedules',
       data: {team_id: id},
     })
     .done(set_busy_dates)
@@ -104,6 +106,9 @@
       }
     });
   });
-
-
+ function show_error_modal(message){
+   $('#error-modal #error-message').text(message);
+   $('#error-modal').modal('show');
+ }
+ 
 })(jQuery)
