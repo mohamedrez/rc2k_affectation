@@ -7,9 +7,9 @@
         beforeShowDay: disable_from_dates
       })
       .on( "change", function() {
-        to.datepicker( "option", "maxDate", get_max_date_based_busy_and_selected_date( this ) );
+        set_to_date(this);
       }),
-    to = $( "#to" ).datepicker({
+    to = $( "#to" ).datepicker({ 
       changeMonth: true,
       beforeShowDay : $.datepicker.noWeekends
     })
@@ -27,6 +27,12 @@
     return date;
   }
 
+  function set_to_date(selected_date){
+    var max_date = get_max_date_based_busy_and_selected_date(selected_date);
+    to.datepicker( "option", "maxDate", max_date);
+    to.datepicker( "option", "minDate", getDate(selected_date));
+  }
+
   function get_max_date_based_busy_and_selected_date(selected_date){
     var max_date = getDate('01/01/2020');
     selected_date = getDate(selected_date);
@@ -34,7 +40,6 @@
       var busy_date = $.datepicker.parseDate(dateFormat, val);
       if(selected_date < busy_date ){
         max_date = addDays(busy_date, -1);
-        console.log(max_date);
         return false;
       }
     });
