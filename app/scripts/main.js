@@ -1,5 +1,5 @@
 (function($){
-  window.busy_dates = [];
+  var busy_dates = [];
   var dateFormat =  "mm/dd/yy",
     from = $( "#from" )
       .datepicker({
@@ -81,5 +81,29 @@
     if(data.length){
       busy_dates = data[0].busy_dates;
     }
-  }    
+  }
+
+  //depends on
+  //
+  $('[data-depends-on]').each(function(){
+    var $this = $(this);
+    var depends_on = $this.data('depends-on');  
+    $this.hide();
+    $('[for="'+ $this.attr('id') + '"]').hide();
+    $('#'+depends_on).on('change',function(event) {
+      var $this = $(this);
+      if($this.val()){
+        var $depends_on_element = $('[data-depends-on="'+ depends_on + '"]');
+        $depends_on_element.fadeIn();
+        $('[for="'+ $depends_on_element.attr('id') + '"]').fadeIn();
+      }else{
+        $('[data-depends-on="'+ depends_on + '"]').fadeOut();
+        $('[for="'+ depends_on + '"]').fadeOut();
+        $('[data-depends-on="'+ depends_on + '"]').val('');
+        $('[data-depends-on="'+ depends_on + '"]').trigger('change');
+      }
+    });
+  });
+
+
 })(jQuery)
