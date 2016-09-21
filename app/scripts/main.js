@@ -1,20 +1,16 @@
 (function($){
   window.busy_dates = [];
-  var dateFormat = "yy-mm-dd",
+  var dateFormat =  "mm/dd/yy",
     from = $( "#from" )
       .datepicker({
-        defaultDate: "+1w",
         changeMonth: true,
-        numberOfMonths: 3,
         beforeShowDay: disable_from_dates
       })
       .on( "change", function() {
-        to.datepicker( "option", "minDate", getDate( this ) );
+        to.datepicker( "option", "maxDate", get_max_date_based_busy_and_selected_date( this ) );
       }),
     to = $( "#to" ).datepicker({
-      defaultDate: "+1w",
       changeMonth: true,
-      numberOfMonths: 3,
       beforeShowDay : $.datepicker.noWeekends
     })
     .on( "change", function() {
@@ -28,10 +24,27 @@
     } catch( error ) {
       date = null;
     }
-
     return date;
   }
 
+  function get_max_date_based_busy_and_selected_date(selected_date){
+    var max_date = getDate('01/01/2020');
+    selected_date = getDate(selected_date);
+    $.each(busy_dates, function(index, val) {
+      var busy_date = $.datepicker.parseDate(dateFormat, val);
+      if(selected_date < busy_date ){
+        max_date = addDays(busy_date, -1);
+        console.log(max_date);
+        return false;
+      }
+    });
+    return max_date;
+  }
+  function addDays(date, days) {
+      var result = new Date(date);
+      result.setDate(result.getDate() + days);
+      return result;
+  }
   function disable_from_dates(date){
 
     var is_enabled = $.datepicker.noWeekends(date);
